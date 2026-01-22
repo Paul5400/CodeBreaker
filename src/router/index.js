@@ -16,6 +16,7 @@ const router = createRouter({
   routes
 })
 
+// Garde de navigation pour empêcher l'accès aux pages sans pseudo (Exercice 2)
 router.beforeEach((to, from, next) => {
   if (to.name !== 'Home' && !pseudo.value) {
     next({ name: 'Home' })
