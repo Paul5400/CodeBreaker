@@ -3,10 +3,13 @@ import { ref, onMounted, onUnmounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGame } from '../services/game'
 import { pseudoKey } from '../plugins/profile'
+import { gameLengthKey, gameMaxAttemptsKey } from '../plugins/gameConfig'
 
 const router = useRouter()
 const { code, generateCode } = useGame()
 const globalPseudo = inject(pseudoKey)
+const gameLength = inject(gameLengthKey, 4)
+const maxAttempts = inject(gameMaxAttemptsKey, 10)
 const localPseudo = ref('')
 let intervalId = null
 
@@ -32,7 +35,7 @@ const submitPseudo = () => {
 
     <section>
       <h2>Règles</h2>
-      <p>Trouvez le code de 4 chiffres uniques en 10 essais.</p>
+      <p>Trouvez le code de {{ gameLength }} chiffres uniques en {{ maxAttempts }} essais.</p>
     </section>
 
     <form @submit.prevent="submitPseudo">

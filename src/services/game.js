@@ -1,15 +1,19 @@
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+import { gameLengthKey, gameMaxAttemptsKey } from '../plugins/gameConfig'
 
 export function useGame() {
   const code = ref([])
   const attempts = ref([])
-  const state = ref('playing') // 'playing', 'won', 'lost'
+  const state = ref('playing') 
+  
+  const gameLength = inject(gameLengthKey, 4)
+  const maxAttempts = inject(gameMaxAttemptsKey, 10)
 
   const generateCode = () => {
     const numbers = Array.from({ length: 10 }, (_, i) => i)
     const newCode = []
     
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < gameLength; i++) {
       const randomIndex = Math.floor(Math.random() * numbers.length)
       newCode.push(numbers.splice(randomIndex, 1)[0])
     }
@@ -55,9 +59,9 @@ export function useGame() {
 
     attempts.value.push(result)
 
-    if (wellPlaced === 4) {
+    if (wellPlaced === gameLength) {
       state.value = 'won'
-    } else if (attempts.value.length >= 10) {
+    } else if (attempts.value.length >= maxAttempts) {
       state.value = 'lost'
     }
 
