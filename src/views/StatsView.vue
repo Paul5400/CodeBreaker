@@ -34,7 +34,7 @@ onMounted(() => {
             <td>{{ game.state === 'won' ? 'Gagné' : 'Perdu' }}</td>
             <td>
               {{ game.lastAttempt?.combination.join(' ') }} 
-              (🎯:{{ game.lastAttempt?.wellPlaced }}, 🔄:{{ game.lastAttempt?.wrongPlaced }})
+              (Bien placés:{{ game.lastAttempt?.wellPlaced }}, Mal placés:{{ game.lastAttempt?.wrongPlaced }})
             </td>
           </tr>
         </tbody>
